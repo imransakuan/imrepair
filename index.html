@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fffde7" />
+  <meta name="description" content="ImRepair computer support services — troubleshooting, Windows reinstallation, software updates and application support." />
+  <title>imrepair. | Computer Support Service</title>
+  <style>
+    :root {
+      --cream: #fffde7;
+      --yellow: #f5e84f;
+      --yellow-deep: #e9d92d;
+      --ink: #241f20;
+      --white: #ffffff;
+      --muted: #6f6965;
+      --line: rgba(36, 31, 32, .14);
+      --radius: 24px;
+      --shadow: 0 18px 45px rgba(36, 31, 32, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+
+    .topbar {
+      padding: 14px 0;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: .88rem;
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .topbar strong { color: var(--yellow); letter-spacing: .04em; }
+    .topbar a { opacity: .9; }
+    .topbar a:hover { opacity: 1; color: var(--yellow); }
+
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255, 253, 231, .92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 82px; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 950; letter-spacing: -.07em; font-size: 1.8rem; line-height: 1; }
+    
+    .brand .dot { color: #5d8f35; }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: .94rem; font-weight: 700; }
+    .nav-links a:not(.nav-cta):hover { text-decoration: underline; text-decoration-color: var(--yellow-deep); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      border: 2px solid var(--ink); border-radius: 999px; padding: 13px 20px;
+      background: var(--yellow); color: var(--ink); font-weight: 850;
+      box-shadow: 4px 4px 0 var(--ink); transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .nav-cta:hover, .button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); background: var(--yellow-deep); }
+    .button.dark { background: var(--ink); color: var(--cream); box-shadow: 4px 4px 0 var(--yellow); border-color: var(--ink); }
+    .button.dark:hover { background: #393233; }
+
+    .hero { padding: 78px 0 72px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 54px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px;
+      border: 1px solid var(--line); border-radius: 999px; background: var(--white);
+      font-size: .8rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 9px; height: 9px; background: #5d8f35; border-radius: 50%; box-shadow: 0 0 0 4px rgba(93,143,53,.14); }
+    h1 { margin: 22px 0 18px; font-size: clamp(3.2rem, 7vw, 6.4rem); line-height: .91; letter-spacing: -.085em; font-weight: 950; }
+    h1 .highlight { display: inline-block; background: var(--yellow); padding: 0 .12em .08em; transform: rotate(-1.5deg); }
+    .hero-copy { max-width: 570px; color: #514a47; font-size: 1.13rem; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .tiny-note { margin-top: 22px; color: var(--muted); font-size: .9rem; }
+    .tiny-note strong { color: var(--ink); }
+
+    .hero-art {
+      min-height: 430px; position: relative; display: grid; place-items: center;
+      border: 2px solid var(--ink); border-radius: 36px; background: var(--yellow);
+      box-shadow: 12px 12px 0 var(--ink); isolation: isolate;
+    }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border: 2px solid var(--ink); border-radius: 50%; z-index: -1; }
+    .hero-art::before { width: 310px; height: 310px; background: rgba(255,253,231,.45); }
+    .hero-art::after { width: 365px; height: 365px; border-style: dashed; }
+    .logo-plaque {
+      width: min(82%, 410px); padding: 22px 18px 18px;
+      background: var(--cream); border: 2px solid var(--ink);
+      border-radius: 24px; box-shadow: 6px 6px 0 var(--ink);
+      display: grid; place-items: center; transform: rotate(-1deg);
+    }
+    .hero-logo { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; }
+
+    .monitor { width: min(78%, 350px); position: relative; }
+    .screen {
+      aspect-ratio: 1.24; border: 12px solid var(--ink); border-radius: 22px;
+      background: var(--cream); display: grid; place-items: center; position: relative;
+      box-shadow: inset 0 0 0 4px rgba(36,31,32,.05);
+    }
+    .screen::before { content: ""; position: absolute; inset: 13px; border: 1px solid rgba(36,31,32,.12); border-radius: 9px; }
+    .screen-icon { font-size: clamp(4rem, 8vw, 6.8rem); font-weight: 900; letter-spacing: -.12em; z-index: 1; }
+    .screen-icon span { color: #5d8f35; }
+    .monitor-neck { width: 72px; height: 42px; margin: 0 auto; background: var(--ink); clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%); }
+    .monitor-base { width: 145px; height: 15px; margin: 0 auto; border-radius: 999px; background: var(--ink); }
+    .floating-tag {
+      position: absolute; background: var(--cream); border: 2px solid var(--ink);
+      border-radius: 15px; padding: 12px 15px; box-shadow: 4px 4px 0 var(--ink);
+      font-weight: 850; font-size: .9rem;
+    }
+    .tag-one { top: 42px; left: -25px; transform: rotate(-7deg); }
+    .tag-two { bottom: 45px; right: -23px; transform: rotate(6deg); }
+    .tag-icon { color: #5d8f35; margin-right: 6px; }
+
+    .trust-strip { background: var(--ink); color: var(--cream); padding: 22px 0; }
+    .trust-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; font-weight: 750; }
+    .check { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--ink); background: var(--yellow); font-weight: 950; }
+
+    section { scroll-margin-top: 100px; }
+    .section { padding: 94px 0; }
+    .section-heading { max-width: 720px; margin-bottom: 38px; }
+    .kicker { color: #527e30; font-size: .8rem; font-weight: 950; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: -.07em; line-height: .98; margin: 12px 0 16px; }
+    .section-heading p { color: var(--muted); font-size: 1.08rem; max-width: 620px; margin: 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card {
+      padding: 27px; border: 1.5px solid var(--ink); border-radius: var(--radius);
+      background: var(--white); min-height: 240px; box-shadow: 5px 5px 0 rgba(36,31,32,.12);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 8px 10px 0 rgba(36,31,32,.12); }
+    .service-icon { width: 54px; height: 54px; display: grid; place-items: center; background: var(--yellow); border: 1.5px solid var(--ink); border-radius: 16px; font-size: 1.5rem; margin-bottom: 24px; }
+    .service-card h3 { margin: 0 0 8px; font-size: 1.24rem; letter-spacing: -.035em; }
+    .service-card p { color: var(--muted); margin: 0; font-size: .96rem; }
+    .service-number { float: right; color: #c3b83c; font-weight: 950; font-size: .9rem; }
+
+    .about { background: var(--yellow); border-block: 2px solid var(--ink); }
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 62px; align-items: center; }
+    .about-stamp {
+      aspect-ratio: 1; max-width: 380px; border: 2px solid var(--ink); border-radius: 50%;
+      display: grid; place-items: center; background: var(--cream); position: relative;
+      box-shadow: 10px 10px 0 var(--ink); margin: 0 auto;
+    }
+    .stamp-inner { text-align: center; padding: 30px; }
+    .stamp-symbol { font-size: 5.5rem; line-height: 1; font-weight: 950; letter-spacing: -.15em; }
+    .stamp-symbol span { color: #5d8f35; }
+    .stamp-label { font-size: .82rem; font-weight: 950; letter-spacing: .13em; text-transform: uppercase; margin-top: 12px; }
+    .about-copy p { font-size: 1.08rem; max-width: 620px; }
+    .owner-card { display: flex; align-items: center; gap: 15px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(36,31,32,.25); }
+    .owner-avatar { width: 68px; height: 68px; flex: 0 0 68px; display: block; object-fit: cover; object-position: center 34%; border-radius: 50%; border: 2px solid var(--ink); background: var(--cream); }
+    .owner-card strong { display: block; font-size: 1.05rem; }
+    .owner-card span { color: #514a47; font-size: .9rem; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: step; }
+    .process-step { padding: 25px; border-top: 3px solid var(--ink); background: rgba(255,255,255,.55); }
+    .process-step::before { counter-increment: step; content: "0" counter(step); display: block; color: #638c40; font-size: 1rem; font-weight: 950; margin-bottom: 24px; }
+    .process-step h3 { margin: 0 0 8px; font-size: 1.25rem; }
+    .process-step p { color: var(--muted); margin: 0; }
+
+    .contact { background: var(--ink); color: var(--cream); }
+    .contact .kicker { color: var(--yellow); }
+    .contact .section-heading p { color: #c7bfba; }
+    .contact-grid { display: grid; grid-template-columns: 1fr .85fr; gap: 50px; align-items: start; }
+    .contact-list { display: grid; gap: 13px; margin-top: 28px; }
+    .contact-link { display: flex; align-items: center; gap: 15px; padding: 17px; border: 1px solid rgba(255,253,231,.2); border-radius: 16px; background: rgba(255,255,255,.04); transition: background .2s ease; }
+    .contact-link:hover { background: rgba(255,255,255,.1); }
+    .contact-icon { flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-size: 1.15rem; }
+    .contact-link small { display: block; color: #c7bfba; font-size: .8rem; }
+    .contact-link strong { overflow-wrap: anywhere; }
+    .contact-panel { padding: 30px; border-radius: 26px; background: var(--yellow); color: var(--ink); border: 2px solid var(--cream); box-shadow: 8px 8px 0 rgba(255,253,231,.18); }
+    .contact-panel h3 { font-size: 1.8rem; line-height: 1.05; letter-spacing: -.06em; margin: 0 0 12px; }
+    .contact-panel p { margin: 0 0 22px; color: #514a47; }
+    .contact-panel .button { width: 100%; }
+    .contact-panel .button + .button { margin-top: 13px; }
+    .contact-panel .button.dark { border-color: var(--ink); box-shadow: 4px 4px 0 var(--cream); }
+
+    footer { padding: 25px 0; background: #191516; color: #c7bfba; font-size: .86rem; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-brand { display: inline-flex; align-items: center; gap: 9px; color: var(--cream); font-size: 1.2rem; font-weight: 950; letter-spacing: -.06em; }
+    
+    .footer-brand span { color: var(--yellow); }
+
+    @media (max-width: 850px) {
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 52px; }
+      .hero-art { min-height: 370px; margin: 10px 10px 0; }
+      .about-grid { gap: 42px; }
+      .about-stamp { max-width: 300px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: 1fr; gap: 10px; }
+      .process-step { padding: 20px 22px; }
+      .process-step::before { margin-bottom: 10px; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .topbar-inner { justify-content: center; text-align: center; }
+      .topbar-inner > span:first-child { display: none; }
+      .nav { min-height: 70px; }
+      .brand { font-size: 1.55rem; }
+      
+      .nav-links { gap: 12px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-cta { padding: 10px 14px; font-size: .86rem; }
+      h1 { font-size: clamp(3rem, 16vw, 4.8rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+      .hero-art { min-height: 320px; border-radius: 25px; box-shadow: 7px 7px 0 var(--ink); }
+      .logo-plaque { width: min(86%, 360px); padding: 17px 14px 13px; border-radius: 19px; }
+      .hero-logo { max-height: 240px; }
+      .hero-art::before { width: 230px; height: 230px; }
+      .hero-art::after { width: 275px; height: 275px; }
+      .tag-one { left: -5px; top: 22px; }
+      .tag-two { right: -5px; bottom: 24px; }
+      .section { padding: 66px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: auto; }
+      .trust-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+      .trust-item { font-size: .88rem; }
+      .contact-panel { padding: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>Reliable help for your everyday tech.</span>
+      <span><strong>Computer Support Service</strong> &nbsp;·&nbsp; <a href="tel:+60103598193">+60 10-359 8193</a></span>
+    </div>
+  </div>
+
+  <header>
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="imrepair home">
+        <span>imrepair<span class="dot">.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#process">How it works</a>
+        <a class="nav-cta" href="#contact">Get support ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Tech support, made simple</div>
+          <h1>Your tech.<br><span class="highlight">Back on track.</span></h1>
+          <p class="hero-copy">Computer problems slowing you down? Got a little “Trouble” with your tech? <strong>imrepair.</strong> helps with common software issues, Windows reinstallation, updates and application support — so your setup can “Begin Again” with clear, friendly support.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://wa.me/60103598193?text=Hi%20ImRepair%2C%20I%20need%20computer%20support." target="_blank" rel="noopener">☏ &nbsp; Chat on WhatsApp</a>
+            <a class="button dark" href="#services">Explore services ↓</a>
+          </div>
+          <p class="tiny-note"><strong>Simple process.</strong> Clear communication. Practical support.</p>
+        </div>
+
+        <div class="hero-art" aria-label="imrepair computer support logo">
+          <div class="floating-tag tag-one"><span class="tag-icon">✦</span>Software support</div>
+          <div class="logo-plaque">
+            <img class="hero-logo" src="assets/imrepair-full-logo.png" alt="imrepair. logo: a computer monitor with dumbbell and wrench symbol above the imrepair wordmark" />
+          </div>
+          <div class="floating-tag tag-two"><span class="tag-icon">✓</span>Problem solved</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-inner">
+        <div class="trust-item"><span class="check">✓</span> Software troubleshooting</div>
+        <div class="trust-item"><span class="check">✓</span> Windows OS support</div>
+        <div class="trust-item"><span class="check">✓</span> App and update help</div>
+        <div class="trust-item"><span class="check">✓</span> Friendly communication</div>
+      </div>
+    </div>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">What we can help with</span>
+          <h2>Less troubleshooting.<br>More getting things done.</h2>
+          <p>From frustrating errors to software that needs a fresh start, explore the support services available through imrepair.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <span class="service-number">01</span>
+            <div class="service-icon">⌁</div>
+            <h3>Slow PC & troubleshooting</h3>
+            <p>If error messages are trying to claim the spotlight, we can help investigate slow performance, recurring errors and everyday software problems. No need to give your PC a “Blank Space” on the repair list.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">02</span>
+            <div class="service-icon">↻</div>
+            <h3>Operating system issues</h3>
+            <p>Support for common operating system failures and Windows OS reinstallation when needed — a chance for your setup to “Begin Again” when a fresh start is the right fix.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">03</span>
+            <div class="service-icon">⌘</div>
+            <h3>Connection problems</h3>
+            <p>Basic troubleshooting for common connectivity issues affecting your computer and applications. We’ll help smooth over any “Bad Blood” between your apps and connection.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">04</span>
+            <div class="service-icon">⟳</div>
+            <h3>Software updates</h3>
+            <p>Assistance with software update installation to help keep your setup current and ready for its next era.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">05</span>
+            <div class="service-icon">▦</div>
+            <h3>Microsoft & Google apps</h3>
+            <p>Help with common issues in productivity apps, including Microsoft and Google applications.</p>
+          </article>
+          <article class="service-card">
+            <span class="service-number">06</span>
+            <div class="service-icon">⚙</div>
+            <h3>Software setup support</h3>
+            <p>Guidance with software setup and basic configuration so you can get back to work or study.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="about-stamp" aria-hidden="true">
+          <div class="stamp-inner">
+            <div class="stamp-symbol">im<span>.</span></div>
+            <div class="stamp-label">Tech support<br>with a human touch</div>
+          </div>
+        </div>
+        <div class="about-copy">
+          <span class="kicker">Meet your support contact</span>
+          <h2>Real help.<br>No tech-talk overload.</h2>
+          <p><strong>imrepair.</strong> is a computer support service focused on helping people resolve everyday software and computer issues. The goal is to make the process easier to understand, explain the next steps clearly and help you choose a practical solution.</p>
+          <p>Whether your computer is running slowly, an application is acting up or you need help reinstalling Windows, get in touch to discuss the issue and find out what support is suitable.</p>
+          <div class="owner-card">
+            <img class="owner-avatar" src="assets/imran-sakuan-profile.jpg" alt="Profile photo of Imran Sakuan, owner of imrepair.">
+            <div><strong>Imran Sakuan</strong><span>Owner · imrepair. Computer Support Service</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">A straightforward process</span>
+          <h2>Support in three steps.</h2>
+          <p>Start with a conversation so the issue and next steps are clear before proceeding.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step">
+            <h3>Tell us what’s wrong</h3>
+            <p>Ready for it? Send a message describing the problem, what device you use and any error message you see.</p>
+          </article>
+          <article class="process-step">
+            <h3>Discuss the next step</h3>
+            <p>We’ll discuss the issue and clarify what type of support may be appropriate.</p>
+          </article>
+          <article class="process-step">
+            <h3>Get back to it</h3>
+            <p>Once the approach is agreed, get help with the issue and any relevant follow-up steps.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div>
+          <div class="section-heading">
+            <span class="kicker">Let’s fix the frustration</span>
+            <h2>Need a hand<br>with your computer?</h2>
+            <p>Don’t let computer trouble become the “Anti-Hero” of your day. Tell us what’s happening and we’ll take it from there. Contact imrepair. to ask about a service or discuss your computer issue.</p>
+          </div>
+          <div class="contact-list">
+            <a class="contact-link" href="https://wa.me/60103598193?text=Hi%20ImRepair%2C%20I%20need%20computer%20support." target="_blank" rel="noopener">
+              <span class="contact-icon">☏</span><span><small>WhatsApp / Phone</small><strong>+60-10-359-8193</strong></span>
+            </a>
+            <a class="contact-link" href="mailto:imransakuan@outlook.com">
+              <span class="contact-icon">✉</span><span><small>Email</small><strong>imransakuan@outlook.com</strong></span>
+            </a>
+          </div>
+        </div>
+        <aside class="contact-panel">
+          <h3>Let’s get your setup into its “Fearless” era.</h3>
+          <p>Send a quick message with your computer model, the issue and when it started. Please avoid sharing passwords or other sensitive information.</p>
+          <a class="button" href="https://wa.me/60103598193?text=Hi%20ImRepair%2C%0A%0AMy%20computer%20issue%20is%3A%20" target="_blank" rel="noopener">Start a WhatsApp chat ↗</a>
+          <a class="button dark" href="mailto:imransakuan@outlook.com?subject=Computer%20Support%20Enquiry">Email an enquiry ↗</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="footer-brand" href="#home">imrepair<span>.</span></a>
+      <span>© <span id="year"></span> imrepair. Computer Support Service.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
